@@ -1,0 +1,19 @@
+Window
+- Window(Show/ShowDialog)
+- DialogWindow (умовно)
+- PopupRoot
+- OverlayPopupHost (overlay window)
+
+Windows statement (Triggers)
+- Opened - вікно зʼявилось
+- Activated - стало активним
+- Deactivated - втратило активність/фокус
+- Closing - вікно збирається закритись (ще можна скасувати)
+- Closed - вікно закрилось остаточно 
+
+
+Show/ShowDialog 
+
+немодальне/модальне вікно(second Window)
+
+Model  VM  View

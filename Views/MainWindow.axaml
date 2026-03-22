@@ -1,20 +1,63 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MultiWindowApp.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MultiWindowApp.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="MultiWindowApp">
-
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+        x:DataType="vm:MainViewModel"
+        Title="MultiWindowApp — MainWindow"
+        Width="600" Height="420"
+        WindowStartupLocation="CenterScreen">
+ 
+    <DockPanel>
+ 
+        <!-- ═══ РЯДОК МЕНЮ ═══ -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="About"
+                          Command="{Binding ShowAboutCommand}" />
+                <Separator/>
+                <MenuItem Header="Exit"
+                          Command="{Binding ExitCommand}" />
+            </MenuItem>
+            <MenuItem Header="Windows">
+                <MenuItem Header="Open dialog"
+                          Command="{Binding OpenDialogCommand}" />
+                <MenuItem Header="Open second window"
+                          Command="{Binding OpenSecondWindowCommand}" />
+            </MenuItem>
+        </Menu>
+ 
+        <!-- ═══ ПАНЕЛЬ КНОПОК ═══ -->
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal" Spacing="10" Margin="16,12">
+            <Button Content="Open dialog"
+                    Command="{Binding OpenDialogCommand}" />
+            <Button Content="Open second"
+                    Command="{Binding OpenSecondWindowCommand}" />
+        </StackPanel>
+ 
+        <!-- ═══ ВІДОБРАЖЕННЯ РЕЗУЛЬТАТУ ═══ -->
+        <Border Margin="16" Padding="12"
+                Background="#4F556B" CornerRadius="6"
+                BorderBrush="#A0B8E0" BorderThickness="1">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Status:" FontWeight="Bold" />
+                <TextBlock Text="{Binding StatusText}" TextWrapping="Wrap" />
+ 
+                <StackPanel
+                    IsVisible="{Binding LastUserData,
+                               Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Spacing="4" Margin="0,8,0,0">
+                    <TextBlock Text="Details:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding LastUserData.Name,
+                                       StringFormat='Name: {0}'}" />
+                    <TextBlock Text="{Binding LastUserData.Email,
+                                       StringFormat='E-mail: {0}'}" />
+                    <TextBlock Text="{Binding LastUserData.Age,
+                                       StringFormat='Age: {0}'}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+ 
+    </DockPanel>
 </Window>
+

@@ -1,9 +1,21 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="using:MultiWindowApp.ViewModels"
         x:Class="MultiWindowApp.Views.SecondWindow"
-        Title="SecondWindow">
-    Welcome to Avalonia!
+        x:DataType="vm:SecondViewModel"
+        Title="{Binding WindowTitle}"
+        Width="380" Height="260"
+        WindowStartupLocation="CenterOwner">
+ 
+    <StackPanel Margin="24" Spacing="16">
+        <TextBlock Text="Send Data:"
+                   FontSize="16" FontWeight="Bold" />
+        <TextBlock Text="{Binding DisplayText}"
+                   TextWrapping="Wrap"
+                   FontFamily="Courier New"
+                   Background="#4F556B" Padding="12" />
+        <Button Content="Close window"
+                HorizontalAlignment="Right"
+                Command="{Binding CloseCommand}" />
+    </StackPanel>
 </Window>
